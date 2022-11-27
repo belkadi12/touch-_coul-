@@ -131,9 +131,18 @@ const useBoard = (wallet: ReturnType<typeof useWallet>) => {
 
 const Buttons = ({ wallet }: { wallet: ReturnType<typeof useWallet> }) => {
   const next = () => wallet?.contract.turn()
+  const register = () => {wallet?.contract.createShip();
+    wallet?.contract.getAddrShip()
+    .then(data => {
+      console.log("Success",data);
+      wallet?.contract.register(data);
+    })
+    .catch(err => {console.log("Register error",err);})
+    
+  }
   return (
     <div style={{ display: 'flex', gap: 5, padding: 5 }}>
-      <button onClick={() => {}}>Register</button>
+      <button onClick={register}>Register</button>
       <button onClick={next}>Turn</button>
     </div>
   )

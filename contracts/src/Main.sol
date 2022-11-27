@@ -4,6 +4,7 @@ pragma solidity ^0.8;
 import './Ship.sol';
 import 'hardhat/console.sol';
 
+
 struct Game {
   uint height;
   uint width;
@@ -13,6 +14,7 @@ struct Game {
 }
 
 contract Main {
+  
   Game private game;
   uint private index;
   mapping(address => bool) private used;
@@ -35,7 +37,12 @@ contract Main {
     index = 1;
     emit Size(game.width, game.height);
   }
+  
+  
 
+  
+ 
+  
   function register(address ship) external {
     require(count[msg.sender] < 2, 'Only two ships');
     require(!used[ship], 'Ship alread on the board');
@@ -49,6 +56,10 @@ contract Main {
     used[ship] = true;
     index += 1;
   }
+  
+
+     
+
 
   function turn() external {
     bool[] memory touched = new bool[](index);
@@ -86,4 +97,19 @@ contract Main {
     }
     return (x, y);
   }
+  
+   
+	address monshipAddr;
+	function createShip() external{
+	  monShip Ship1 = new monShip();
+	  
+	  monshipAddr = address(Ship1);
+	}
+
+	function getAddrShip() external view returns(address){
+	return monshipAddr;
+
+	}
+    
+   
 }
